@@ -1,92 +1,106 @@
 package com.game.game;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.TreeSet;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class guessingGame {
 
-
     private int rightGuess;
-    private TreeSet<Integer> lifes= new TreeSet<Integer>();
+    private TreeSet<Integer> lifes = new TreeSet<Integer>();
     private int leftGuess;
-    private boolean game=false;
+    private boolean game = false;
     private String name;
+    private Integer lose = 0;
+    
 
-    public guessingGame(String name){
+    
+
+    public guessingGame(String name) {
         this.name = name;
-        this.rightGuess = 1 + (int)(100 * Math.random());
+        this.rightGuess = 1 + (int) (100 * Math.random());
         this.leftGuess = 5;
     }
 
+ 
+
+            
 
 
+    
 
-    public String entergame(){
+    public String entergame() {
         return "Welcome to the game";
     }
 
-    public  String gameStart(int n)
-    {
+    public String gameStart(int n) {
+        String greater = "Your number is higher";
+        String smaller = "Your number is lower";
         this.lifes.add(n);
-            if (n!=this.rightGuess){
-                if(leftGuess!=0){
-                    leftGuess -=1;
-                }
-               
-                return "Wrong !. You have "+ leftGuess + "guesses left";
+        if (n != this.rightGuess) {
+            if (leftGuess != 0) {
+                leftGuess -= 1;
             }
 
-                
-                else{
-                    this.game=true;
-                    return "YOU WON!";
-                    
+            if (leftGuess == 0 & !this.game) {
 
-                }
+                this.lose = -1;
+                return "You LOST, Good Luck  Next Time";
+            }
+            if (rightGuess < n & !this.game) {
+                this.lose = 0;
+                return "Wrong !. You have " + leftGuess + "guesses left\n" + greater;
 
             }
-        
+            if (rightGuess > n & !this.game) {
+                this.lose = 0;
+                return "Wrong !. You have " + leftGuess + "guesses left\n " + smaller;
 
-            public String getHelp(){
-                String guesshelp="";
-                if (this.lifes.size()==0){
-                    return "enter a number";
-                }
-                if(Collections.max(this.lifes)>this.rightGuess){
-                    guesshelp +="your number is higher";
-                    for (Integer num:lifes) {
-                    if (num>this.rightGuess){
-                        guesshelp = Integer.toString(num);
-                    }
             }
-            guesshelp+="\n";
+            this.lose = -1;
 
+            return "The game ended. to restart again go to GET REQUEST";
         }
-        if(Collections.min(this.lifes)<this.rightGuess){
-            guesshelp+="Lower than target:";
-            for (Integer num:lifes){
-                if (num<this.rightGuess){
-                    guesshelp+="\n"+Integer.toString(num);
-                }
-            }
+
+        else {
+            this.game = true;
+            this.lose = 1;
+            return "YOU WON!";
             
+
         }
-return guesshelp;
 
     }
-        
+
+
+    
+
     public String getInfo() {
         String info = this.name;
-        if(game){
-            info+= "you won";
 
+        if (this.lose == 1) {
+            info += " \nYou Won";
+
+        } 
+        if (this.lose == 0) {
+
+            return "You havent played the game yet";
         }
-        else{
-            info+= "you lost";
+        if (this.lose == -1) {
+            info += " \nYou Lost " ;
+        }
+        else {
+            
         }
         return info;
     }
 }
-        
-        

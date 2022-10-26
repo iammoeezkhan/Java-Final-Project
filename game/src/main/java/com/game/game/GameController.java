@@ -8,91 +8,72 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
 @RestController
 public class GameController {
-private guessingGame GuessingGame;
-
-
-
+    private guessingGame GuessingGame;
 
     @GetMapping
     public String help() {
         return "Welcome to the number guessing game";
-        
+
     }
 
     @PostMapping("/enter")
-    public String entergame(@RequestParam(value = "name") String name)throws ControllerException {
+    public String entergame(@RequestParam(value = "name") String name) throws ControllerException {
         this.GuessingGame = new guessingGame(name);
-        return "Guess thee number";
+        return "Guess the number";
     }
 
-    @PostMapping("/number")
-    public String getnumber(@RequestParam(value = "n")int n)throws ControllerException {
+
+
+    @PutMapping("/number")
+    public String getnumber(@RequestParam(value = "n") int n) throws ControllerException {
         return this.GuessingGame.gameStart(n);
     }
-    @GetMapping("/help")
-	public String Help(){
-		return this.GuessingGame.getHelp();
 
+   
 
-}
-@GetMapping("/info")
-public String stats(){
-    return this.GuessingGame.getInfo();
-}
+    @GetMapping("/info")
+    public String stats() {
+        return this.GuessingGame.getInfo();
+    }
 }
 
-//     @GetMapping("/Player")
-//    public  getPlayer() {
-//     return p;
+// @GetMapping("/Player")
+// public getPlayer() {
+// return p;
 
-    
-
-//     }
+// }
 
 // @PostMapping("/Player")
 // public void postName() {
-//  p = new Player();
-
+// p = new Player();
 
 // }
 // @PutMapping("/Player")
 // public void putName(@RequestParam String name, Integer age) {
-//     p.setName(name);
-//     p.setAge(age);
+// p.setName(name);
+// p.setAge(age);
 // }
-
-
-
-    
-
-
 
 // @DeleteMapping("/Player")
 // public void deleteName() {
-//     p = null;
+// p = null;
 // }
-
 
 // }
 // @GetMapping("/vehicle")
 // public Vehicle getVehicle(@RequestParam String model) {
-//     if (v.getModel().equals(model)){
-//         return v;
-//     }
-//     else{
-//         return null;
-//     }
-
-//  }
-    
+// if (v.getModel().equals(model)){
+// return v;
+// }
+// else{
+// return null;
 // }
 
+// }
 
+// }
 
 /**
  * GET /vehicle
