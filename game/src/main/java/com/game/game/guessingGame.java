@@ -27,7 +27,7 @@ public class guessingGame {
 
     public guessingGame(String name) {
         this.name = name;
-        this.rightGuess = 1 + (int) (100 * Math.random());
+        this.rightGuess = 1 + (int) (10 * Math.random());
         this.leftGuess = 5;
     }
 
@@ -93,7 +93,7 @@ public class guessingGame {
         } 
         if (this.lose == 0) {
 
-            return "You havent played the game yet";
+            return "You havent finnished the game yet";
         }
         if (this.lose == -1) {
             info += " \nYou Lost " ;
